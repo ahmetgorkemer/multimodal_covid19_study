@@ -1,3 +1,5 @@
+# Sample script for canonical correlation analysis of Radiomic Features and Viral Genome Word2Vec Encoding. This script can be extended to analyze the correlation between other pairs.
+
 library(PMA)
 library(ggplot2)
 library(dplyr)
