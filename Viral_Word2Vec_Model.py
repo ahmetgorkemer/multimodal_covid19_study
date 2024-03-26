@@ -18,6 +18,16 @@ def get_aa_mutations(tsv_path):        # Creating the dictionary
         df = df.append(temp_df)
     df = df.drop_duplicates(subset='seqName')
 
+    df['epi_id'] = pd.Series(dtype='str')
+    df.drop('index', axis=1, inplace=True)
+    df = df.reset_index()
+
+    for i,row in df.iterrows():
+        temp_name = row['seqName']
+        temp_name = temp_name.split('|')
+        temp_name = temp_name[1]
+        df.at[i,'epi_id'] = temp_name
+
     df[['aaSubstitutions']] = df[['aaSubstitutions']].fillna('')
     df[['aaDeletions']] = df[['aaDeletions']].fillna('')
     df[['aaInsertions']] = df[['aaInsertions']].fillna('')
