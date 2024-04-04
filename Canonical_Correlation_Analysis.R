@@ -6,17 +6,17 @@ library(dplyr)
 library("data.table")
 library(tidyr)
 
-sparse_cca <- function(data_1,data_2){     # According the the number of canonical vectors desired, k parameter of the CCA function and the return list can be adjusted.
+sparse_cca <- function(x,z){  # Assuming we have two data matrices, x and z, on the same set of n observations
   list_result <- list()
-  x <- apply(as.matrix(data_1),2,as.numeric)
-  z <- apply(as.matrix(data_2),2,as.numeric)
+  x <- apply(as.matrix(x),2,as.numeric)
+  z <- apply(as.matrix(z),2,as.numeric)
   X_ind = which(apply(x,2,var) > 0.001) 
   Z_ind = which(apply(z,2,var) > 0.001) 
   x_fil = x[,X_ind]
   z_fil = z[,Z_ind]
   
   set.seed(3)
-  cca_fit_perm = CCA.permute(x_fil,z_fil,
+  cca_fit_perm = CCA.permute(x_fil,z_fil,   # According the the number of canonical vectors desired, k parameter of the CCA function and the returned list can be adjusted.
                                 typex="standard",
                                 typez="standard",
                                 nperms=25,trace=FALSE)
